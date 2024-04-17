@@ -1,0 +1,17 @@
+- route:
+    id: route-kafka
+    description: "Reads from a Kafka topic"
+    from:
+      id: from-kafka
+      uri: kafka:test-topic
+      parameters:
+        brokers: kafka.rm066rh-dev.svc.cluster.local:9092
+        clientId: camel-route-client
+        saslJaasConfig: org.apache.kafka.common.security.scram.ScramLoginModule required username="user1" password="{{secret:kafka-user-passwords/client-passwords}}";
+        saslMechanism: SCRAM-SHA-256
+        securityProtocol: SASL_PLAINTEXT
+      steps:
+        - to:
+            id: to-2210
+            uri: log:logger
+            parameters: {}
