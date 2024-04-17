@@ -1,0 +1,23 @@
+schemaVersion: 2.2.2
+metadata:
+  name: kaoto-examples
+components:
+  - name: tools
+    container:
+      image: quay.io/devfile/universal-developer-image:ubi8-latest
+      memoryLimit: 4G
+      cpuLimit: 4000m
+      cpuRequest: 1000m
+commands:
+  - id: jbang-trust-apache
+    exec:
+      label: "JBang - Trust Apache organization"
+      component: tools
+      workingDir: ${PROJECTS_ROOT}/kaoto-examples
+      commandLine: "jbang trust add https://github.com/apache/"
+      group:
+        kind: build
+        isDefault: true
+events:
+  postStart:
+    - jbang-trust-apache
