@@ -1,0 +1,21 @@
+- route:
+    id: SQL Component
+    from:
+      id: from-1352
+      uri: sql:SELECT * FROM transactions
+      parameters:
+        dataSource: "#PostgresqlDataSource"
+      steps:
+        - to:
+            id: to-2112
+            uri: log:Logger
+            parameters: {}
+- beans:
+    - name: PostgresqlDataSource
+      properties:
+        databaseName: "{{secret:postgres/database-name}}"
+        password: "{{secret:postgres/database-password}}"
+        portNumber: "5432"
+        serverName: postgres.rm066rh-dev.svc.cluster.local
+        user: "{{secret:postgres/database-user}}"
+      type: org.postgresql.ds.PGSimpleDataSource
