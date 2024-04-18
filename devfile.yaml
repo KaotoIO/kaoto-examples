@@ -14,7 +14,8 @@ commands:
       label: "JBang - Trust Apache organization"
       component: tools
       workingDir: ${PROJECTS_ROOT}/kaoto-examples
-      commandLine: "jbang trust add https://github.com/apache/"
+      # Taken from where the JBang cli is installed in the universal developer image
+      commandLine: "/home/tooling/.sdkman/candidates/jbang/current/bin/jbang trust add -o --fresh --quiet https://github.com/apache/"
       group:
         kind: build
         isDefault: true
