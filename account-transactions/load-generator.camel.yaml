@@ -1,0 +1,34 @@
+- route:
+    id: route-8241
+    description: Load generator
+    from:
+      id: from-2750
+      description: tick
+      uri: timer:template
+      parameters:
+        period: "10000"
+      steps:
+        - setBody:
+            id: setBody-2930
+            description: Create random record
+            expression:
+              simple:
+                expression: >
+                  ${date:now:yyyy-MM-dd'T'HH:mm:ss},${random(9999)}${random(9999)},${random(9999)}.00
+        - log:
+            id: log-3386
+            description: Print to console
+            disabled: true
+            message: "Record generated: ${body}"
+        - to:
+            id: to-1796
+            description: Submit transaction record
+            uri: kafka:transactions
+            parameters:
+              brokers: kafka.rm066rh-dev.svc.cluster.local:9092
+              clientId: load-generator-client
+              saslJaasConfig: org.apache.kafka.common.security.scram.ScramLoginModule required
+                username="user1"
+                password="{{secret:kafka-user-passwords/client-passwords}}";
+              saslMechanism: SCRAM-SHA-256
+              securityProtocol: SASL_PLAINTEXT

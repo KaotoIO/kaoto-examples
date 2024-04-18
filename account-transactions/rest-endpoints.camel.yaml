@@ -1,0 +1,41 @@
+- rest:
+    get:
+      - id: get-transactions
+        description: An endpoint to retrieve the last 10 transactions
+        param:
+          - description: Limit how many records are returned
+            dataType: integer
+            name: limit
+            required: false
+            type: query
+        path: /transactions
+        produces: application/json
+        to: direct:get-transactions
+- route:
+    id: route-1526
+    from:
+      description: An endpoint to retrieve the last 10 transactions
+      uri: direct:get-transactions
+      steps:
+        - to:
+            id: to-1127
+            description: Retrieve the last n records
+            uri: sql:SELECT * FROM transactions ORDER BY timestamp DESC LIMIT
+              :#${headerAs(limit, int)};
+            parameters:
+              dataSource: "#PostgresqlDataSource"
+        - marshal:
+            id: marshal-2107
+            description: Convert to JSON
+            json:
+              prettyPrint: true
+              useList: true
+- beans:
+    - name: PostgresqlDataSource
+      properties:
+        databaseName: "{{secret:postgres/database-name}}"
+        password: "{{secret:postgres/database-password}}"
+        portNumber: "5432"
+        serverName: postgres.rm066rh-dev.svc.cluster.local
+        user: "{{secret:postgres/database-user}}"
+      type: org.postgresql.ds.PGSimpleDataSource
