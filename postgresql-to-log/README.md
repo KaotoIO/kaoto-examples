@@ -4,8 +4,9 @@ This example shows how to query a Postgresql database, using the camel `sql` com
 
 ## Prerequisites
 1. A running Postgresql database
-2. A database named `transactions`
-3. A table named `transactions` with the following structure
+2. The Postgresql driver dependency available in the classpath, in this example, it's added to the `application.properties` file
+3. A database named `transactions`
+4. A table named `transactions` with the following structure
     | Column name | Data type |
     |-------------|-----------|
     | id          | serial    |
@@ -13,7 +14,7 @@ This example shows how to query a Postgresql database, using the camel `sql` com
     | accountnumber | varchar  |
     | amount      | float8    |
 
-4. Some records in the `transactions` table
+5. Some records in the `transactions` table
 
 ## How to run
 As an example, here's a SQL script to create the database and table, and insert some records:
@@ -40,7 +41,11 @@ INSERT INTO public.transactions ("timestamp", accountnumber, amount) VALUES ('20
         * `database-name` containing the database name
         * `database-user` containing the user name
         * `database-password` containing the password
-2. Run the integration using the Camel CLI extension, or by executing the following command:
+2. Since this example requires the Postgresql dependency, change to the `postgresql-to-log` folder
 ```shell
-jbang '-Dcamel.jbang.version=4.5.0' camel@apache/camel run postgresql.camel.yaml --dev --logging-level=info -local-kamelet-dir=.
+cd postgresql-to-log
+```
+3. Run the integration using the Camel CLI extension, or by executing the following command:
+```shell
+jbang '-Dcamel.jbang.version=4.5.0' camel@apache/camel run * --dev --logging-level=info
 ```
