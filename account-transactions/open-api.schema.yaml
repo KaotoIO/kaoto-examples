@@ -1,0 +1,28 @@
+openapi: 3.0.2
+info:
+    title: New API
+    version: 1.0.0
+    description: A demo schema to consume data from Postgresql
+    license:
+        name: Apache 2.0
+        url: 'https://www.apache.org/licenses/LICENSE-2.0'
+paths:
+    /transactions:
+        get:
+            parameters:
+                -
+                    name: limit
+                    description: Limit how many records are returned
+                    schema:
+                        type: integer
+                    in: query
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items: {}
+                    description: 'The transactions were retrieved successfully '
+            operationId: get-transactions
+            description: An endpoint to retrieve the last 10 transactions
