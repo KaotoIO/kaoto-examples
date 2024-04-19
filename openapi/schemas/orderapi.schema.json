@@ -1,0 +1,70 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1",
+    "title": "",
+    "description": ""
+  },
+  "paths": {
+    "/order": {
+      "post": {
+        "operationId": "order",
+        "description": "",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/order/{order_id}": {
+      "get": {
+        "operationId": "getOrder",
+        "description": "",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "order_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {},
+    "schemas": {}
+  }
+}
