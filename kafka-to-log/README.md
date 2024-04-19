@@ -7,12 +7,12 @@ This example shows how to read a Kafka topic, using the camel `kafka` component,
 2. A topic named `test-topic` with some messages in it
 
 ## How to run
-1. Open the `kafka.camel.yaml` file and set the `brokers`, `topic` and `saslJaasConfig` values to match your Kafka cluster
+1. Open the `kafka-to-log.camel` file and set the `brokers`, `topic` and `saslJaasConfig` values to match your Kafka cluster
     1.1. This example uses the `SCRAM-SHA-256` SASL mechanism. If you are using a different mechanism, you need to change the `saslJaasConfig` value accordingly
     1.2. This example expects to have a secret named `kafka-user-passwords` with a `client-passwords` key containing the password for the Kafka cluster
 2. Run the integration using the Camel CLI extension, or by executing the following command:
 ```shell
-jbang '-Dcamel.jbang.version=4.5.0' camel@apache/camel run kafka.camel.yaml --dev --logging-level=info --local-kamelet-dir=.
+jbang '-Dcamel.jbang.version=4.5.0' camel@apache/camel run kafka-to-log.camel --dev --logging-level=info --local-kamelet-dir=.
 ```
 
 ## Parameters example
