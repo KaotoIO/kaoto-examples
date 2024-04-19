@@ -6,6 +6,8 @@ This example shows how to implement and expose endpoints according to the OpenAP
 
 Generated REST DSL from OpenAPI maps `operationId` endpoints from the contract to `direct:operationId`
 
+RestOpenAPIRouteBuilder.java is a workaround to expose OpenAPI schema at /q/openapi
+
 ## Index
 | Name              | Description           | Tags          |
 | ---               | ---                   | ---           |
@@ -17,7 +19,7 @@ Generated REST DSL from OpenAPI maps `operationId` endpoints from the contract t
 ## How to run
 1. Run the integration:
 ```shell
-camel run openapi-to-file.camel.yaml --dev --open-api schemas/orderapi.schema.json
+camel run openapi-to-file.camel.yaml RestOpenAPIRouteBuilder.java --dev --open-api schemas/orderapi.schema.json
 jbang '-Dcamel.jbang.version=4.5.0' camel@apache/camel run openapi-to-file.camel.yaml --dev --open-api schemas/orderapi.schema.json --logging-level=info
 ```
 2. Send the request:
