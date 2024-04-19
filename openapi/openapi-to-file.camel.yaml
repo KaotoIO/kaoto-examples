@@ -1,0 +1,44 @@
+- route:
+    id: route-order-post
+    description: Store order
+    from:
+      id: from-5406
+      description: post order
+      uri: direct:order
+      parameters:
+        exchangePattern: InOut
+      steps:
+        - to:
+            id: to-1473
+            description: store order
+            uri: file:tmp
+            parameters:
+              fileName: ${jq(.order_id)}.json
+        - to:
+            id: to-2210
+            uri: log:logger
+            parameters:
+              multiline: true
+              showAll: true
+- route:
+    id: route-order-get
+    description: Get order
+    from:
+      id: from-4217
+      description: get order
+      uri: direct:getOrder
+      parameters:
+        exchangePattern: InOut
+      steps:
+        - pollEnrich:
+            id: pollEnrich-1934
+            expression:
+              simple:
+                expression: file:tmp?fileName=${header.order_id}.json&delete=true
+            timeout: "1000"
+        - to:
+            id: to-2211
+            uri: log:logger
+            parameters:
+              multiline: true
+              showAll: true

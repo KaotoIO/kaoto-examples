@@ -1,0 +1,32 @@
+{
+    "order_id": "899ac6c6-5939-4a91-8d0b-f0281e6b63ee",
+    "customer": {
+        "customer_id": "b8f288da-6b57-4783-8a86-91a1a8b7728e",
+        "name": "Alex Smith",
+        "email": "alexsmith@example.com"
+    },
+    "items": [
+        {
+            "item_id": "54795a7c-98ff-4048-b203-0be197e98ad0",
+            "description": "Wireless Mouse",
+            "type": "E",
+            "quantity": 1,
+            "price": 20.0
+        },
+        {
+            "item_id": "b8f288da-6b57-4783-8a86-91a1a8b7728e",
+            "description": "Keyboard",
+            "type": "E",
+            "quantity": 1,
+            "price": 50.0
+        }
+    ],
+    "delivery_address": {
+        "street": "123 Example St",
+        "city": "Anytown",
+        "state": "Anystate",
+        "zip_code": "12345"
+    },
+    "payment_method": "Credit Card",
+    "order_total": 70.0
+}
