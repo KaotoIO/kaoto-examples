@@ -1,0 +1,68 @@
+- route:
+    id: orchestrateroute-2734
+    from:
+      id: from-rest
+      uri: rest:get:/policies
+      parameters:
+        bindingMode: auto
+        exchangePattern: InOnly
+        outType: ""
+        produces: application/json
+        queryParameters: policyid
+      steps:
+        - setHeader:
+            id: setHeader-policyid
+            expression:
+              csimple:
+                expression: ${header.policyid}
+            name: policyid
+        - log:
+            id: input-log
+            disabled: false
+            logName: InputParamLog
+            message: Rest Request Received ${header.policyid}
+        - setBody:
+            id: setBody-toKafka
+            expression:
+              csimple:
+                expression: Rest Request Received ${header.policyid}
+        - to:
+            id: to-kafkaTopicTestTopic
+            uri: kafka:testtopic
+            parameters:
+              brokers: 172.24.112.89:9092
+              checkCrcs: false
+              key: camel
+              lazyStartProducer: true
+        - to:
+            id: to-SQLQuery
+            uri: sql:select * from policy_data where policyid=:#${header.policyid}
+            parameters:
+              dataSource: "#dsbean"
+            pattern: InOut
+        - marshal:
+            id: marshal-1649
+            json: {}
+        - to:
+            id: to-1656
+            uri: log:SelectQueryOut
+            parameters: {}
+- beans:
+    - name: dsbean
+      properties:
+        password: mysql
+        url: jdbc:mysql://localhost:3306/kafka
+        user: mysql
+      type: com.mysql.cj.jdbc.MysqlConnectionPoolDataSource
+- route:
+    id: triggerroute-2598
+    from:
+      id: from-1304
+      uri: kafka:testtopic
+      parameters:
+        brokers: 172.24.112.89:9092
+      steps:
+        - log:
+            id: log-1594
+            logName: route2-KafkaMessage
+            message: ${body}
