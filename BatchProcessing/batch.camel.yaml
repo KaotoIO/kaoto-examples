@@ -2,7 +2,7 @@
     id: route-3731
     from:
       id: from-6471
-      uri: file:C:\Users\ajdesai\Demo\kaoto\
+      uri: file:./samples/
       parameters:
         fileName: SampleCSV.csv
         flatten: true
