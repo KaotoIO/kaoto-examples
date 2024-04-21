@@ -1,0 +1,52 @@
+- route:
+    id: route-3731
+    from:
+      id: from-6471
+      uri: file:./samples/
+      parameters:
+        fileName: SampleCSV.csv
+        flatten: true
+        moveExisting: ""
+        recursive: true
+      steps:
+        - unmarshal:
+            id: unmarshal-4264
+            csv:
+              ignoreHeaderCase: true
+              trim: true
+              useMaps: true
+        - to:
+            id: to-3430
+            uri: log:test
+            parameters: {}
+        - to:
+            id: to-1890
+            uri: sql:delete from csv_table
+            parameters:
+              dataSource: "#dsbean"
+        - split:
+            id: split-1736
+            steps:
+              - to:
+                  id: to-3324
+                  uri: log:Record Processed
+                  parameters: {}
+              - to:
+                  id: to-5675
+                  uri: sql:insert into csv_table(POLICY_ID,
+                    POLICY_NAME,BENEFICIARY_ID,BENEFICIARY_NAME,POLICY_STATUS,AGENT_ID,AGENT_NAME,PREMIUM_AMOUNT)  values
+                    (
+                    :#POLICY_ID,:#POLICY_NAME,:#BENEFICIARY_ID,:#BENEFICIARY_NAME,:#POLICY_STATUS,:#AGENT_ID,:#AGENT_NAME,:#PREMIUM_AMOUNT)
+                  parameters:
+                    dataSource: "#dsbean"
+            expression:
+              csimple:
+                expression: ${body}
+- beans:
+    - builderMethod: build
+      name: dsbean
+      properties:
+        password: mysql
+        url: jdbc:mysql://localhost:3306/kafka
+        user: mysql
+      type: com.mysql.cj.jdbc.MysqlDataSource
