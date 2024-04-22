@@ -41,3 +41,29 @@ To stop the compose file with docker, you can use the following command:
 ```bash
 docker-compose -f kafka-postgres.compose.yaml down
 ```
+
+## Kafka
+The kafka instance is available at `localhost:9092` and you can use it to connect to the kafka topics.
+#### Connection properties:
+| Property          | Value                 |
+|-------------------|-----------------------|
+| brokers           | localhost:9092        |
+| clientId          | load-generator-client |
+| saslJaasConfig    | org.apache.kafka.common.security.scram.ScramLoginModule required; |
+| saslMechanism     | GSSAPI                |
+| securityProtocol  | PLAINTEXT             |
+
+## Kafka UI
+The kafka UI is available at `http://localhost:8080` and you can use it to monitor the kafka topics.
+
+## Postgres
+The postgres instance is available at `localhost:5432` and you can use it to connect to the database.
+
+#### Connection properties:
+| Property      | Value     |
+|---------------|-----------|
+| serverName    | localhost |
+| portNumber    | 5432      |
+| databaseName  | postgres  |
+| user          | postgres  |
+| password      | postgres  |
