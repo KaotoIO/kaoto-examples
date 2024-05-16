@@ -15,7 +15,7 @@ commands:
       component: tools
       workingDir: ${PROJECTS_ROOT}/kaoto-examples
       # Taken from where the JBang cli is installed in the universal developer image
-      commandLine: "/home/tooling/.sdkman/candidates/jbang/current/bin/jbang trust add -o --fresh --quiet https://github.com/apache/"
+      commandLine: "/home/tooling/.sdkman/candidates/jbang/current/bin/jbang trust add -o --fresh --quiet https://github.com/apache/ && /home/tooling/.sdkman/candidates/jbang/current/bin/jbang app install camel@apache/camel"
       group:
         kind: build
         isDefault: true
