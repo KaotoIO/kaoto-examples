@@ -1,0 +1,82 @@
+- route:
+    id: route-1717
+    from:
+      id: from-1083
+      uri: rest
+      parameters:
+        consumes: application/xml
+        method: post
+        path: /transform
+        produces: application/xml
+      steps:
+        - step:
+            id: kaoto-datamapper-1f50e1fb
+            steps:
+              - to:
+                  id: kaoto-datamapper-xslt-5380
+                  uri: xslt-saxon:kaoto-datamapper-1f50e1fb.xsl
+        - setProperty:
+            id: setProp-1
+            description: transformedBody
+            expression:
+              simple: ${body}
+            name: originalBody
+        - split:
+            id: itemSplitter
+            steps:
+              - to:
+                  description: perItemLog
+                  uri: log
+                  parameters:
+                    level: INFO
+                    loggerName: rawItem
+                    multiline: true
+                    showBody: true
+              - choice:
+                  id: categoryRouter
+                  otherwise:
+                    steps:
+                      - to:
+                          description: generalQueue
+                          uri: activemq
+                          parameters:
+                            connectionFactory: "#brokerCF"
+                            destinationName: general_orders
+                            destinationType: queue
+                            disableReplyTo: true
+                            exchangePattern: InOnly
+                  when:
+                    - description: whenPremium
+                      steps:
+                        - to:
+                            description: premiumQueue
+                            uri: activemq
+                            parameters:
+                              connectionFactory: "#brokerCF"
+                              destinationName: premium_orders
+                              destinationType: queue
+                              disableReplyTo: true
+                              exchangePattern: InOnly
+                      expression:
+                        xpath:
+                          expression: //note="Special Edition"
+            expression:
+              xpath: //item
+        - setBody:
+            id: restoreOriginalBody
+            description: restoreOriginalBody
+            expression:
+              simple: ${exchangeProperty.originalBody}
+        - setHeader:
+            id: setContentType
+            description: restResponse
+            expression:
+              simple: application/xml
+            name: Content-Type
+- beans:
+    - name: brokerCF
+      properties:
+        brokerURL: tcp://localhost:61616
+        password: admin
+        userName: admin
+      type: org.apache.activemq.ActiveMQConnectionFactory
