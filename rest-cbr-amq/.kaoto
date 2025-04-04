@@ -1,0 +1,18 @@
+{
+	"kaoto-datamapper-1f50e1fb": {
+		"sourceBody": {
+			"type": "XML Schema",
+			"filePath": [
+				"src/main/resources/schemas/shiporder.xsd"
+			]
+		},
+		"sourceParameters": {},
+		"targetBody": {
+			"type": "XML Schema",
+			"filePath": [
+				"src/main/resources/schemas/item.xsd"
+			]
+		},
+		"xsltPath": "kaoto-datamapper-1f50e1fb.xsl"
+	}
+}
