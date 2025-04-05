@@ -10,8 +10,14 @@ podman run -d -p 61616:61616 -p 8161:8161 apache/activemq-artemis:latest
 podman ps
 ```
 
+# Launch the camel route.
 
+Run the application using 
+```
+camel run *
+```
 # Use below snippets for quick testing.
+
 ```
 curl --location 'http://localhost:8080/transform' \
 --header 'Content-Type: application/xml' \
