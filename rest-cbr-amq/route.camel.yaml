@@ -76,7 +76,10 @@
 - beans:
     - name: brokerCF
       properties:
-        brokerURL: tcp://localhost:61616
-        password: admin
-        userName: admin
+        brokerURL: "{{amq.brokerurl}}"
+        password: "{{amq.username}}"
+        userName: "{{amq.password}}"
       type: org.apache.activemq.ActiveMQConnectionFactory
+
+
+
