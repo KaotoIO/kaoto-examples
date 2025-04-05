@@ -1,8 +1,18 @@
-= Kaoto Data Mapper Example
-= This route is wrappable inside a camel-quarkus project with dependencies added in pom.xml
 
-== How to Test
-----
+# Kaoto Data Mapper Example
+This route showcases on how to use Kaoto Data Mapper for transformations, along with Content based routing connecting to ActiveMQ Artemis.
+This route is wrappable inside a camel-quarkus project with dependencies added in pom.xml
+
+# AMQ Container
+```
+podman pull apache/activemq-artemis:latest
+podman run -d -p 61616:61616 -p 8161:8161 apache/activemq-artemis:latest
+podman ps
+```
+
+
+# Use below snippets for quick testing.
+```
 curl --location 'http://localhost:8080/transform' \
 --header 'Content-Type: application/xml' \
 --data '<?xml version="1.0" encoding="UTF-8"?>
@@ -50,3 +60,4 @@ curl -X POST http://localhost:8080/transform \
     <price>20.90</price>
   </item>
 </shiporder>'
+```
