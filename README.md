@@ -12,9 +12,9 @@
 <h2 align="center">Kaoto - The Integration Designer for <a href="https://camel.apache.org">Apache Camel</a></h2>
 
 <p align="center">
-  <a href="https://kaoto.io/docs/installation">Documentation</a> | 
-  <a href="https://kaoto.io/workshop/">Workshops</a> | 
-  <a href="https://kaoto.io/contribute/">Contribute</a> | 
+  <a href="https://kaoto.io/docs/installation">Documentation</a> |
+  <a href="https://kaoto.io/workshop/">Workshops</a> |
+  <a href="https://kaoto.io/contribute/">Contribute</a> |
   <a href="https://camel.zulipchat.com/#narrow/stream/441302-kaoto">Chat</a>
 </p>
 
@@ -40,15 +40,18 @@ This is a lightweight, browser-based version of Visual Studio Code that lets you
 Alternatively, you could clone the repository and run the examples locally. After cloning the repository, you can follow the instructions from [the Kaoto's quickstart guide](https://kaoto.io/docs/quickstart/) to run the examples.
 
 ## Index
-| Name              | Description           | Tags          |
-| ---               | ---                   | ---           |
-| [Account Transactions](account-transactions) | A set of camel routes that generates CSV-like records, submits it to a kafka topic and later on store it into a Postgresql database | # kafka #database #sql #postgresql #log |
-| [kafkaToLog](kafka-to-log)                | A camel route reading from a kafka topic and logging it to the screen | #kafka #log |
-| [OpenAPI](openapi)                | Camel routes showcasing implementations from OpenAPI contract definitions | #openapi #file #log |
-| [postgresqlToLog](postgresql-to-log)      | A camel route querying a Postgresql database and logging it to the screen | #database #sql #postgresql #log |
+| Name                                             | Description                                                                                                                         | Tags                                    |
+| ---                                              | ---                                                                                                                                 | ---                                     |
+| [Account Transactions](account-transactions)     | A set of camel routes that generates CSV-like records, submits it to a kafka topic and later on store it into a Postgresql database | #kafka #database #sql #postgresql #log  |
+| [Batch processing](BatchProcessing)              | A camel route reading from CSV files and store them into a MySQL database                                                           | #csv #mysql #log                        |
+| [kafkaToLog](kafka-to-log)                       | A camel route reading from a kafka topic and logging it to the screen                                                               | #kafka #log                             |
+| [OpenAPI](openapi)                               | Camel routes showcasing implementations from OpenAPI contract definitions                                                           | #openapi #file #log                     |
+| [postgresql-to-log](postgresql-to-log)           | A camel route querying a Postgresql database and logging it to the screen                                                           | #database #sql #postgresql #log         |
+| [rest-cbr-amq](rest-cbr-amq)                     | Using Kaoto Data Mapper for transformations, along with Content based routing connecting to ActiveMQ Artemis                        | #datamapper #activemq                   |
+| [Rest-Kafka-Database](Rest-Kafka-Database-Route) | A camel route exposing a Rest endpoint, querying a DB and then reacting to Kafka topics                                             | #database #sql #kafka                   |
 
 
 ## Supporting folder
-| Name              | Description           |
-| ---               | ---                   |
-| [compose](compose) | Holds compose files to bootstrap components that might be required to run the examples |
+| Name                                             | Description                                                                                                                         |
+| ---                                              | ---                                                                                                                                 |
+| [compose](compose)                               | Holds compose files to bootstrap components that might be required to run the examples                                              |
