@@ -1,0 +1,24 @@
+- route:
+    id: route-2308
+    from:
+      id: from-1527
+      description: Read file
+      uri: file
+      parameters:
+        directoryName: ./test-file
+        idempotent: true
+        idempotentKey: ${file:name}
+        noop: true
+      steps:
+        - unmarshal:
+            id: unmarshal-3798
+            description: CSV - map
+            csv:
+              trim: true
+              useMaps: true
+        - split:
+            id: split-2544
+            description: Split by patient
+            csimple:
+              expression: ${body}
+        - log: ${body}
