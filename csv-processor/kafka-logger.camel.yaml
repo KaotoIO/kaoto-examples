@@ -1,0 +1,18 @@
+- route:
+    id: route-2402
+    from:
+      id: from-2667
+      description: Receiver Kafka
+      uri: kafka
+      parameters:
+        autoOffsetReset: earliest
+        brokers: "{{csv-processor.kafka.brokers}}"
+        topic: Kafka-Message
+      steps:
+        - to:
+            id: to-4131
+            uri: log:InfoLogger
+            parameters: {}
+        - log:
+            description: Logger
+            message: ${body} For Kafka

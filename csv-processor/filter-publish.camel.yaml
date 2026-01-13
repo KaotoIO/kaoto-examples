@@ -1,0 +1,39 @@
+- route:
+    id: route-7542
+    from:
+      id: from-3743
+      uri: direct
+      parameters:
+        name: From Read CSV
+      steps:
+        - filter:
+            id: filter-3679
+            description: Filter by ZIP code
+            steps:
+              - to:
+                  id: to-1377
+                  description: Sending error
+                  uri: direct
+                  parameters:
+                    name: Send-To-Error
+              - stop:
+                  id: stop-3684
+            simple:
+              expression: ${body[ZIP]} == null || ${body[ZIP]} == ""
+        - multicast:
+            id: multicast-7959
+            description: Multicast Not Null Data
+            steps:
+              - to:
+                  id: to-3009
+                  description: Sending to DB
+                  uri: direct
+                  parameters:
+                    name: Send-To-DB
+              - to:
+                  id: to-2812
+                  description: Sent by Kafka
+                  uri: kafka
+                  parameters:
+                    brokers: "{{csv-processor.kafka.brokers}}"
+                    topic: Kafka-Message

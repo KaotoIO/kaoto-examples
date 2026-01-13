@@ -1,0 +1,29 @@
+- route:
+    id: route-2308
+    from:
+      id: from-1527
+      description: Read file
+      uri: file
+      parameters:
+        directoryName: ./test-file
+        idempotent: true
+        idempotentKey: ${file:name}
+        move: done
+      steps:
+        - unmarshal:
+            id: unmarshal-3798
+            description: CSV - map
+            csv:
+              header: Id,BIRTHDATE,DEATHDATE,PREFIX,FIRST,LAST,SUFFIX,MAIDEN,MARITAL,RACE,ETHNICITY,GENDER,BIRTHPLACE,ADDRESS,CITY,STATE,COUNTY,ZIP,LAT,LON
+              trim: true
+              useMaps: true
+        - split:
+            id: split-2544
+            description: Split by patient
+            csimple:
+              expression: ${body}
+        - to:
+            id: to-1297
+            uri: direct
+            parameters:
+              name: From Read CSV

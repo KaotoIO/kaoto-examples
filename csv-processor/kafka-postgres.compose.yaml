@@ -1,0 +1,34 @@
+services:
+  postgres:
+    image: quay.io/fedora/postgresql-16:latest
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRESQL_USER=test
+      - POSTGRESQL_PASSWORD=test
+      - POSTGRESQL_DATABASE=test
+    volumes:
+      - postgres_data:/var/lib/pgsql/data:Z
+
+  kafka:
+    image: quay.io/debezium/kafka:3.3.2.Final
+    container_name: kafka
+    ports:
+      - "9092:9092"
+    volumes:
+      - kafka_data:/kafka/data:Z
+    environment:
+      - CLUSTER_ID=MkU3OEVBNTcwNTJENDM2Qk
+      - BROKER_ID=1
+      - KRAFT_ENABLED=true
+      - KAFKA_AUTO_CREATE_TOPICS_ENABLE=true
+      - KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092
+      - KAFKA_CONTROLLER_QUORUM_VOTERS=1@localhost:9093
+      - KAFKA_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT
+
+volumes:
+  kafka_data:
+  postgres_data:

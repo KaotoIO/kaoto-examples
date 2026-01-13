@@ -1,0 +1,24 @@
+- route:
+    id: route-3714
+    from:
+      id: from-4191
+      description: Receiving for DB
+      uri: direct
+      parameters:
+        name: Send-To-DB
+      steps:
+        - marshal:
+            id: marshal-6992
+            description: Convert to JSON
+            json: {}
+        - to:
+            id: to-3764
+            description: Save in Postgres
+            uri: kamelet:postgresql-sink
+            parameters:
+              databaseName: "{{csv-processor.postgres.database-name}}"
+              password: "{{csv-processor.postgres.password}}"
+              query: INSERT INTO patients (id, birthdate, ZIP) VALUES (:#${body[Id]},
+                :#${body[BIRTHDATE]}, :#${body[ZIP]});
+              serverName: "{{csv-processor.postgres.server-name}}"
+              username: "{{csv-processor.postgres.username}}"

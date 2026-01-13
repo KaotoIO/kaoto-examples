@@ -1,0 +1,21 @@
+- route:
+    id: route-1227
+    from:
+      id: from-1382
+      description: Receiving error
+      uri: direct
+      parameters:
+        name: Send-To-Error
+      steps:
+        - marshal:
+            id: marshal-1879
+            description: Convert to CSV
+            csv:
+              header: Id,BIRTHDATE,DEATHDATE,PREFIX,FIRST,LAST,SUFFIX,MAIDEN,MARITAL,RACE,ETHNICITY,GENDER,BIRTHPLACE,ADDRESS,CITY,STATE,COUNTY,ZIP,LAT,LON
+        - to:
+            id: to-1767
+            description: Create Error Files
+            uri: file
+            parameters:
+              directoryName: ./errors
+              fileName: ${date:now:yyyyMMddHHmmss}_${exchangeId}.csv
