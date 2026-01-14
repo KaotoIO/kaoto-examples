@@ -1,0 +1,12 @@
+- route:
+    id: route-3714
+    from:
+      id: from-1193
+      description: Receiving for DB
+      uri: kafka
+      parameters:
+        brokers: localhost:9092
+        topic: DB-Data
+      steps:
+        - log:
+            message: ${body} for DB

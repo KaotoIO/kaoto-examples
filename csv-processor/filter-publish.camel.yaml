@@ -10,12 +10,21 @@
             id: filter-3679
             description: Filter by ZIP code
             steps:
-              - log:
-                  id: log-3164
-                  message: to error
+              - to:
+                  id: to-1576
+                  description: Sending to error
+                  uri: kafka
+                  parameters:
+                    brokers: localhost:9092
+                    topic: Error-Data
               - stop:
                   id: stop-3684
             simple:
               expression: ${body[ZIP]} == null || ${body[ZIP]} == ""
-        - log:
-            message: to db
+        - to:
+            id: to-1818
+            description: Sending to DB
+            uri: kafka
+            parameters:
+              brokers: localhost:9092
+              topic: DB-Data

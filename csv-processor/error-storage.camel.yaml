@@ -1,0 +1,12 @@
+- route:
+    id: route-1227
+    from:
+      id: from-8083
+      description: Receiving error
+      uri: kafka
+      parameters:
+        brokers: localhost:9092
+        topic: Error-Data
+      steps:
+        - log:
+            message: ${body} for Error
