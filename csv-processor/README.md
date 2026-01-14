@@ -15,8 +15,8 @@ Jason Walonoski, Mark Kramer, Joseph Nichols, Andre Quina, Chris Moesel, Dylan H
 ### Workflow
 
 1. Read the CSV file from a local directory and split the file into individual records. => route-csv.camel.yaml
-2. Filter patients by age (18 years old) and publish this records into two Kafka message queues. => filter-publish.camel.yaml
-3.  Receive the > 18 years old data and store them in a database => db-store.camel.yaml
-4. Receive the < 18 years old data and write them as error in an error folder => error-storage.camel.yaml
+2. Filter patients by missing ZIP code and publish this records into two Kafka message queues. => filter-publish.camel.yaml
+3. Receive the data including ZIP code and store them in a database => db-store.camel.yaml
+4. Receive the data without ZIP code and write them as error in an error folder => error-storage.camel.yaml
 
 
