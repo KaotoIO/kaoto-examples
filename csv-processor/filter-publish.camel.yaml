@@ -1,0 +1,21 @@
+- route:
+    id: route-7542
+    from:
+      id: from-3743
+      uri: direct
+      parameters:
+        name: From Read CSV
+      steps:
+        - filter:
+            id: filter-3679
+            description: Filter by ZIP code
+            steps:
+              - log:
+                  id: log-3164
+                  message: to error
+              - stop:
+                  id: stop-3684
+            simple:
+              expression: ${body[ZIP]} == null || ${body[ZIP]} == ""
+        - log:
+            message: to db

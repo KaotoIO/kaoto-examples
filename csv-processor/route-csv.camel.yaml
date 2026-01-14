@@ -21,4 +21,8 @@
             description: Split by patient
             csimple:
               expression: ${body}
-        - log: ${body}
+        - to:
+            id: to-1297
+            uri: direct
+            parameters:
+              name: From Read CSV
