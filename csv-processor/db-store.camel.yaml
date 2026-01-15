@@ -7,7 +7,19 @@
       parameters:
         name: Send-To-DB
       steps:
-        - log:
-            id: log-2253
+        - marshal:
+            id: marshal-6992
+            description: Convert to JSON
+            json: {}
+        - to:
+            id: to-3764
+            description: Save in Postgres
+            uri: kamelet:postgresql-sink
+            parameters:
+              databaseName: test
+              password: test
+              query: INSERT INTO patients (id, birthdate, ZIP) VALUES (:#${body[Id]},
+                :#${body[BIRTHDATE]}, :#${body[ZIP]});
+              serverName: localhost
+              username: test
             disabled: false
-            message: ${body} for DB

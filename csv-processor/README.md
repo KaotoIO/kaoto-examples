@@ -11,30 +11,13 @@ Jason Walonoski, Mark Kramer, Joseph Nichols, Andre Quina, Chris Moesel, Dylan H
 1. A CSV file (the one proposed is in this [link](https://mavenanalytics.io/data-playground/hospital-patient-records))
 2. A running Kafka cluster
 3. A running Postgres database
-5. Create a table with the following query:
+5. Create a table with the following query (for simplification, only id, birthdate and ZIP will be used):
 
 ``` 
 CREATE TABLE patients (    
-    id integer NOT null,
-    birthdate date,
-    deathdate date,
-    prefix character,
-    first character,
-    last character,
-    suffix character,
-    maiden character,
-    marital character,
-    race character,
-    ethnicity character,
-    gender character,
-    birthplace character,
-    address character,
-    city character,
-    state character,
-    county character,
-    ZIP integer,
-    LAT integer,
-    LON integer
+    id character(64) NOT null,
+    birthdate character(10),
+    ZIP character(5)
 );
 ```
 
