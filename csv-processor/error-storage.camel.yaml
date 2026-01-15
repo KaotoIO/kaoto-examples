@@ -1,12 +1,11 @@
 - route:
     id: route-1227
     from:
-      id: from-8083
+      id: from-1382
       description: Receiving error
-      uri: kafka
+      uri: direct
       parameters:
-        brokers: localhost:9092
-        topic: Error-Data
+        name: Send-To-Error
       steps:
         - log:
             message: ${body} for Error

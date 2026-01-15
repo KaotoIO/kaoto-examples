@@ -11,20 +11,31 @@
             description: Filter by ZIP code
             steps:
               - to:
-                  id: to-1576
-                  description: Sending to error
+                  id: to-1377
+                  description: Sending error
+                  uri: direct
+                  parameters:
+                    name: Send-To-Error
+              - stop:
+                  id: stop-3684
+            disabled: false
+            simple:
+              expression: ${body[ZIP]} == null || ${body[ZIP]} == ""
+        - multicast:
+            id: multicast-7959
+            description: Multicast Not Null Data
+            steps:
+              - to:
+                  id: to-3009
+                  description: Sending to DB
+                  uri: direct
+                  parameters:
+                    name: Send-To-DB
+              - to:
+                  id: to-2812
+                  description: Sent by Kafka
                   uri: kafka
                   parameters:
                     brokers: localhost:9092
-                    topic: Error-Data
-              - stop:
-                  id: stop-3684
-            simple:
-              expression: ${body[ZIP]} == null || ${body[ZIP]} == ""
-        - to:
-            id: to-1818
-            description: Sending to DB
-            uri: kafka
-            parameters:
-              brokers: localhost:9092
-              topic: DB-Data
+                    topic: Kafka-Message
+                  disabled: false

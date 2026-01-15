@@ -1,0 +1,14 @@
+- route:
+    id: route-2402
+    from:
+      id: from-2667
+      description: Receiver Kafka
+      uri: kafka
+      parameters:
+        brokers: localhost:9092
+        topic: Kafka-Message
+      steps:
+        - log:
+            description: Logger
+            disabled: false
+            message: ${body} For Kafka
