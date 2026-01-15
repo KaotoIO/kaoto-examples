@@ -14,6 +14,7 @@
             id: unmarshal-3798
             description: CSV - map
             csv:
+              header: Id,BIRTHDATE,DEATHDATE,PREFIX,FIRST,LAST,SUFFIX,MAIDEN,MARITAL,RACE,ETHNICITY,GENDER,BIRTHPLACE,ADDRESS,CITY,STATE,COUNTY,ZIP,LAT,LON
               trim: true
               useMaps: true
         - split:
