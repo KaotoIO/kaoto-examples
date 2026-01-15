@@ -8,7 +8,10 @@
         brokers: localhost:9092
         topic: Kafka-Message
       steps:
+        - to:
+            id: to-4131
+            uri: log:InfoLogger
+            parameters: {}
         - log:
             description: Logger
-            disabled: false
             message: ${body} For Kafka
