@@ -1,0 +1,22 @@
+- route:
+    id: route-2573
+    from:
+      id: from-3280
+      uri: file-watch
+      parameters:
+        path: /tmp/tutorial/
+        recursive: false
+      steps:
+        - filter:
+            id: filter-2413
+            steps:
+              - to:
+                  id: to-2610
+                  uri: file
+                  parameters:
+                    directoryName: /tmp/backup/
+            simple:
+              expression: ${header.CamelFileEventType} == 'CREATE'
+        - log:
+            message: Detected ${header.CamelFileEventType} on file ${header.CamelFileName}
+              at ${header.CamelFileLastModified}
