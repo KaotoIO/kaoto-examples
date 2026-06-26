@@ -1,0 +1,73 @@
+- route:
+    id: my-integration-route
+    description: HTTP endpoint route that processes incoming JSON messages and
+      routes them based on message ID, supporting both standard and alternative
+      processing scenarios
+    from:
+      id: http-endpoint-input
+      uri: platform-http:/test/route-input
+      description: Platform HTTP endpoint listening on /test/route-input for incoming
+        JSON requests
+      steps:
+        - unmarshal:
+            id: unmarshal-json-request
+            description: Deserialize incoming JSON payload into Java object using Jackson
+              library
+            json:
+              library: Jackson
+        - log:
+            id: log-incoming-message
+            description: Log the received message body for debugging and audit purposes
+            message: "Received message: ${body}"
+        - setHeader:
+            id: set-processed-by-header
+            description: Add custom header to track which integration service processed this
+              message
+            name: ProcessedBy
+            constant: my-integration
+        - choice:
+            id: route-by-message-id
+            description: Route message to appropriate handler based on the message ID field
+            when:
+              - id: check-alternative-scenario
+                steps:
+                  - setBody:
+                      id: set-alternative-response
+                      description: Set response body to indicate alternative scenario was processed
+                      constant: Alternative scenario handled
+                description: Route message to appropriate handler based on the message ID field
+                simple:
+                  expression: ${body[id]} == 2
+              - id: check-standard-scenario
+                steps:
+                  - setBody:
+                      id: set-standard-response
+                      description: Set response body to indicate successful standard processing
+                      constant: Message processed successfully
+                description: Standard processing path for messages with ID equal to 1
+                simple:
+                  expression: ${body[id]} == 1
+            otherwise:
+              id: handle-unknown-message-type
+              description: Fallback handler for messages with unrecognized ID values
+              steps:
+                - setBody:
+                    id: set-unknown-response
+                    description: Set response body indicating message was received but type was not
+                      recognized
+                    constant: Message processed with unknown type
+        - log:
+            id: log-final-output
+            description: Log final response body and ProcessedBy header value for audit
+              trail
+            message: "Output: ${body} with header ProcessedBy=${header.ProcessedBy}"
+        - to:
+            id: send-to-kafka
+            uri: kafka
+            parameters:
+              topic: "{{kafka.topic}}"
+              brokers: "{{kafka.bootstrap.servers}}"
+              clientId: "{{kafka.client.id}}"
+            description: Send the processed response message to Kafka topic for downstream
+              consumption
+            disabled: false

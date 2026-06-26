@@ -1,0 +1,89 @@
+name: my-integration.citrus
+author: Citrus
+status: FINAL
+description: Test Camel route HTTP endpoints without external dependencies
+variables:
+  - name: test.payload
+    value: '{"id": 1, "message": "test data"}'
+  - name: test.payload.unknown
+    value: '{"id": 99, "message": "unknown test data"}'
+  - name: test.payload.missing.field
+    value: '{"message": "no id"}'
+actions:
+  - camel:
+      infra:
+        run:
+          service: kafka
+  - camel:
+      jbang:
+        run:
+          integration:
+            name: my-route
+            file: ../my-route.camel.yaml
+            systemProperties:
+              properties:
+                - name: kafka.bootstrap.servers
+                  value: ${CITRUS_CAMEL_INFRA_KAFKA_BOOTSTRAP_SERVERS}
+  - delay:
+      milliseconds: "2000"
+  - send:
+      endpoint: http://localhost:8080/test/route-input
+      message:
+        body:
+          data: ${test.payload}
+        headers:
+          - name: Content-Type
+            value: application/json
+  - camel:
+      jbang:
+        verify:
+          integration: my-route
+          logMessage: "Output: Message processed successfully with header
+            ProcessedBy=my-integration"
+  - receive:
+      endpoint: kafka:my-topic?server=${CITRUS_CAMEL_INFRA_KAFKA_BOOTSTRAP_SERVERS}
+      message:
+        body:
+          data: Message processed successfully
+  - echo:
+      message: ✓ Standard scenario (ID=1) log and Kafka message validated
+  - send:
+      endpoint: http://localhost:8080/test/route-input
+      message:
+        body:
+          data: ${test.payload.unknown}
+        headers:
+          - name: Content-Type
+            value: application/json
+  - camel:
+      jbang:
+        verify:
+          integration: my-route
+          logMessage: "Output: Message processed with unknown type with header
+            ProcessedBy=my-integration"
+  - echo:
+      message: ✓ Unknown scenario (ID=99) log validated
+  - send:
+      endpoint: http://localhost:8080/test/route-input
+      message:
+        body:
+          data: ${test.payload.missing.field}
+        headers:
+          - name: Content-Type
+            value: application/json
+  - camel:
+      jbang:
+        verify:
+          integration: my-route
+          logMessage: "Output: Message processed with unknown type with header
+            ProcessedBy=my-integration"
+  - echo:
+      message: ✓ Missing field scenario (No ID) log validated
+  - doFinally:
+      actions:
+        - camel:
+            infra:
+              stop:
+                service: kafka
+        - echo:
+            message: Tests completed
