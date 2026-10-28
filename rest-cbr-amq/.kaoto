@@ -3,16 +3,17 @@
 		"sourceBody": {
 			"type": "XML Schema",
 			"filePath": [
-				"src/main/resources/schemas/shiporder.xsd"
+				"schemas/shiporder.xsd"
 			]
 		},
 		"sourceParameters": {},
 		"targetBody": {
 			"type": "XML Schema",
 			"filePath": [
-				"src/main/resources/schemas/item.xsd"
+				"schemas/item.xsd"
 			]
 		},
-		"xsltPath": "kaoto-datamapper-1f50e1fb.xsl"
+		"xsltPath": "kaoto-datamapper-1f50e1fb.xsl",
+		"namespaceMap": {}
 	}
 }
