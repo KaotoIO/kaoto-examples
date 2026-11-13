@@ -1,0 +1,22 @@
+{
+	"kaoto-datamapper-3148ebc4": {
+		"sourceBody": {
+			"type": "XML Schema",
+			"filePath": [
+				"orders.dfdl.xsd"
+			]
+		},
+		"sourceParameters": {},
+		"targetBody": {
+			"type": "XML Schema",
+			"filePath": [
+				"invoice.xsd"
+			]
+		},
+		"xsltPath": "kaoto-datamapper-3148ebc4.xsl",
+		"namespaceMap": {
+			"xs": "http://www.w3.org/2001/XMLSchema",
+			"fn": "http://www.w3.org/2005/xpath-functions"
+		}
+	}
+}

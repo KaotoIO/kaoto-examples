@@ -1,0 +1,25 @@
+- route:
+    id: csv-to-xml
+    from:
+      uri: timer
+      parameters:
+        timerName: once
+        repeatCount: "1"
+      steps:
+        - setBody:
+            expression:
+              constant:
+                expression: resource:classpath:orders.csv
+        - unmarshal:
+            dfdl:
+              schemaUri: orders.dfdl.xsd
+        - step:
+            id: kaoto-datamapper-3148ebc4
+            steps:
+              - to:
+                  id: kaoto-datamapper-xslt-6547
+                  uri: xslt-saxon:kaoto-datamapper-3148ebc4.xsl
+                  parameters:
+                    failOnNullBody: false
+        - log:
+            message: ${body}

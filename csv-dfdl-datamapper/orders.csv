@@ -1,0 +1,4 @@
+orderId,customer,product,quantity,unitPrice
+A-1001,Acme Corp,Widget,3,9.99
+A-1002,Acme Corp,Gadget,1,24.50
+A-1003,Acme Corp,Gizmo,10,2.75
