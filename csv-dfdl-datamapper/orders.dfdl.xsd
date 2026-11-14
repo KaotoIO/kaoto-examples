@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/">
+
+  <xs:annotation>
+    <xs:appinfo source="http://www.ogf.org/dfdl/">
+      <dfdl:format
+          representation="text" encoding="UTF-8" encodingErrorPolicy="error" byteOrder="bigEndian"
+          lengthKind="delimited" lengthUnits="characters"
+          separator="" separatorPosition="infix" separatorSuppressionPolicy="anyEmpty"
+          initiator="" terminator="" initiatedContent="no" documentFinalTerminatorCanBeMissing="yes"
+          ignoreCase="no" sequenceKind="ordered" occursCountKind="implicit"
+          textTrimKind="none" textPadKind="none" textStringJustification="left"
+          textStringPadCharacter="%SP;" textNumberPadCharacter="%SP;"
+          textNumberRep="standard" textNumberPattern="#,##0.###;-#,##0.###" textNumberJustification="right"
+          textNumberCheckPolicy="lax" textStandardBase="10"
+          textStandardDecimalSeparator="." textStandardGroupingSeparator=","
+          textStandardExponentRep="E" textStandardInfinityRep="Inf" textStandardNaNRep="NaN"
+          textStandardZeroRep="" textNumberRounding="pattern" textNumberRoundingMode="roundUp"
+          decimalSigned="yes" textZonedSignStyle="asciiStandard"
+          textBooleanTrueRep="true" textBooleanFalseRep="false"
+          textBooleanJustification="left" textBooleanPadCharacter="%SP;"
+          emptyValueDelimiterPolicy="both" nilKind="literalValue" nilValue="%ES;"
+          nilValueDelimiterPolicy="none" useNilForDefault="no"
+          truncateSpecifiedLengthString="no" floating="no" binaryFloatRep="ieee"
+          alignment="1" alignmentUnits="bytes" leadingSkip="0" trailingSkip="0" fillByte="%SP;"
+          choiceLengthKind="implicit" outputNewLine="%LF;"
+          calendarPattern="yyyy-MM-dd" calendarPatternKind="implicit" calendarCheckPolicy="lax"
+          calendarTimeZone="UTC" calendarObserveDST="yes" calendarFirstDayOfWeek="Monday"
+          calendarDaysInFirstWeek="4" calendarCenturyStart="53" calendarLanguage="en-US"
+          textCalendarJustification="left" textCalendarPadCharacter="%SP;"
+          textBidi="no"/>
+    </xs:appinfo>
+  </xs:annotation>
+
+  <xs:element name="orders">
+    <xs:complexType>
+      <xs:sequence dfdl:separator="%NL;" dfdl:separatorPosition="postfix">
+        <xs:element name="header">
+          <xs:complexType>
+            <xs:sequence dfdl:separator=",">
+              <xs:element name="title" type="xs:string" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="order" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence dfdl:separator=",">
+              <xs:element name="orderId" type="xs:string"/>
+              <xs:element name="customer" type="xs:string"/>
+              <xs:element name="product" type="xs:string"/>
+              <xs:element name="quantity" type="xs:int"/>
+              <xs:element name="unitPrice" type="xs:decimal"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
